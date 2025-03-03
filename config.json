@@ -1,0 +1,21 @@
+{
+  "max_rent_threshold": 3200,
+  "websites": [
+   { 
+    "name" : "Cmpnd",
+    "url" :  "https://namdar.appfolio.com/listings/"
+    },
+    { "name" : "Riversedge",
+      "url" : "https://www.riversedgepi.com/floorplans/a9"}
+  ],
+  "filters": {
+    "min_sqft": 550,
+    "bedrooms": "1",
+    "bathrooms": "1",
+    "move_in_date_range_days": 20,
+    "desired_move_in_date": "05/10/2025" 
+  },
+  "scraping_engine": "JinaAi",
+  "engine_config": {
+  }
+}
