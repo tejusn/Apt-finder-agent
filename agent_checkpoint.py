@@ -8,6 +8,10 @@ import os
 import smtplib
 from email.mime.text import MIMEText
 import google.generativeai as genai
+from dotenv import load_dotenv  # Import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
