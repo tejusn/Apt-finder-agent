@@ -17,6 +17,8 @@ GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 JINA_API_KEY = os.environ.get("JINA_API_KEY")
 if not GOOGLE_API_KEY:
     raise EnvironmentError("GOOGLE_API_KEY environment variable is required. Please set it in .env file.")
+if not JINA_API_KEY:
+    raise EnvironmentError("JINA_API_KEY environment variable is required. Please set it in .env file.")
 
 # Configure Gemini API globally
 genai.configure(api_key=GOOGLE_API_KEY)
@@ -161,8 +163,8 @@ def send_email_alert(all_listings):
         property_name = property_data['name']
         listings = property_data['listings']
 
-        email_body += f"Property: {property_name}\n" # Add property name as title
         email_body += f"--------------------\n"
+        email_body += f"Property: {property_name}\n" # Add property name as title
 
         if not listings:
             email_body += "No listings found for this property.\n\n"
@@ -211,17 +213,18 @@ def main():
             elif config.get('scraping_engine','') == 'JinaAi':
                 listing_text = scrape_using_jina_ai(property['url'])
                 property_listings = extract_listings_with_gemini(listing_text, config)
+            
             logging.info(f"Extracted {len(property_listings)} listings using Gemini API.")
-                # Append the property name and its listings to all_listings
+               
+            # Append the property name and its listings to all_listings
+            
             all_listings.append({
                 'name': property['name'],
                 'listings': property_listings
             })   
-        
-            # import time
-            # time.sleep(10) # Increase delay to 10 seconds
+
         # Single-line mock data for testing
-        all_listings = [{'name': 'Cmpnd', 'listings': [{'rent': '$3,000', 'square_feet': '735', 'bed_bath': '1 bd / 1 ba', 'available_date': '4/14/25', 'address': '97 Newkirk Street - Residence 1607, Jersey City, NJ 07306', 'title': 'Residence 1607', 'url': 'https://example.com/listing/1607'}, {'rent': '$2,100', 'square_feet': '283', 'bed_bath': 'Studio / 1 ba', 'available_date': '4/1/25', 'address': '28 Cottage Street - Residence 801, Jersey City, NJ 07306', 'title': 'Residence 801', 'url': 'https://example.com/listing/801'}]}, {'name': 'Riversedge', 'listings': [{'rent': '$3,650', 'square_feet': '761', 'bed_bath': '2 bd / 1 ba', 'available_date': '4/8/25', 'address': '97 Newkirk Street - Residence 1104, Jersey City, NJ 07306', 'title': 'Residence 1104', 'url': 'https://example.com/listing/1104'}, {'rent': '$3,400', 'square_feet': '676', 'bed_bath': '2 bd / 1 ba', 'available_date': '4/8/25', 'address': '97 Newkirk Street - Residence 708, Jersey City, NJ 07306', 'title': 'Residence 708', 'url': 'https://example.com/listing/708'}]}]
+        # all_listings = [{'name': 'Cmpnd', 'listings': [{'rent': '$3,000', 'square_feet': '735', 'bed_bath': '1 bd / 1 ba', 'available_date': '4/14/25', 'address': '97 Newkirk Street - Residence 1607, Jersey City, NJ 07306', 'title': 'Residence 1607', 'url': 'https://example.com/listing/1607'}, {'rent': '$2,100', 'square_feet': '283', 'bed_bath': 'Studio / 1 ba', 'available_date': '4/1/25', 'address': '28 Cottage Street - Residence 801, Jersey City, NJ 07306', 'title': 'Residence 801', 'url': 'https://example.com/listing/801'}]}, {'name': 'Riversedge', 'listings': [{'rent': '$3,650', 'square_feet': '761', 'bed_bath': '2 bd / 1 ba', 'available_date': '4/8/25', 'address': '97 Newkirk Street - Residence 1104, Jersey City, NJ 07306', 'title': 'Residence 1104', 'url': 'https://example.com/listing/1104'}, {'rent': '$3,400', 'square_feet': '676', 'bed_bath': '2 bd / 1 ba', 'available_date': '4/8/25', 'address': '97 Newkirk Street - Residence 708, Jersey City, NJ 07306', 'title': 'Residence 708', 'url': 'https://example.com/listing/708'}]}]
         send_email_alert(all_listings) # Send email alert with all extracted listings for now
     else:
         logging.error("Agent could not start due to configuration errors.")

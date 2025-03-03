@@ -6,7 +6,11 @@
     "url" :  "https://namdar.appfolio.com/listings/"
     },
     { "name" : "Riversedge",
-      "url" : "https://www.riversedgepi.com/floorplans/a9"}
+      "url" : "https://www.riversedgepi.com/floorplans/a9"
+    },
+    { "name" : "18 Park",
+      "url" : "https://www.18park.com/floorplans/1-bed-1-bath"
+    }
   ],
   "filters": {
     "min_sqft": 550,
