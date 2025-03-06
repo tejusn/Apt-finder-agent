@@ -1,6 +1,5 @@
-dotenv
 requests
 beautifulsoup4
-langchain
-transformers
 google-generativeai
+python-dotenv
+flask
