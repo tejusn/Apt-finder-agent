@@ -10,6 +10,10 @@
     },
     { "name" : "18 Park",
       "url" : "https://www.18park.com/floorplans/1-bed-1-bath"
+    },
+    {
+      "name" : "RiverParc",
+      "url" : "https://www.riverparcpi.com/floorplans/a1"
     }
   ],
   "filters": {
